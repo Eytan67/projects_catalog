@@ -1,7 +1,8 @@
 from sqlalchemy.orm import Session
-from db.models import Project
-from db.schemas import ProjectCreate, Project
 from typing import List
+
+from app.db.models import Project
+from app.db.schemas import ProjectCreate, Project
 
 def create_project(db: Session, project: ProjectCreate, created_by: str) -> Project:
     db_project = Project(**project.model_dump(), created_by=created_by)

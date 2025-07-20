@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 
-from api.endpoints.progects import router as projects_router
+from app.api.endpoints.progects import router as projects_router
 
 app = FastAPI(title="Projects Catalog API")
 

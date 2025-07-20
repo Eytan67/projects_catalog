@@ -42,3 +42,4 @@ class Admin(AdminBase):
 
     class Config:
         from_attributes = True
+        

@@ -1,9 +1,10 @@
 from sqlalchemy import Column, String, Text, Enum, TIMESTAMP
 from sqlalchemy.dialects.postgresql import UUID, JSONB
 from sqlalchemy.sql import func
-from db.database import Base
 import enum
 import uuid
+
+from app.db.database import Base
 
 class ProjectStatus(enum.Enum):
     Development = "Development"
@@ -32,3 +33,4 @@ class Admin(Base):
 
     sso_id = Column(String(100), primary_key=True)
     added_at = Column(TIMESTAMP, server_default=func.current_timestamp())
+    
