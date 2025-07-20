@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from db.database import get_db
 from db.schemas import ProjectCreate, Project
 from services.project_service import create_project, get_project, get_projects, update_project, delete_project
-from deps import is_admin
+from api.deps import is_admin
 from db.models import Admin
 from typing import List
 
