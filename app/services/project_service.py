@@ -2,22 +2,22 @@ from sqlalchemy.orm import Session
 from typing import List
 
 from app.db.models import Project
-from app.db.schemas import ProjectCreate, Project
+from app.db.schemas import ProjectCreate, Project as ProjectSchema
 
-def create_project(db: Session, project: ProjectCreate, created_by: str) -> Project:
+def create_project(db: Session, project: ProjectCreate, created_by: str) -> ProjectSchema:
     db_project = Project(**project.model_dump(), created_by=created_by)
     db.add(db_project)
     db.commit()
     db.refresh(db_project)
     return db_project
 
-def get_project(db: Session, project_id: str) -> Project:
+def get_project(db: Session, project_id: str) -> ProjectSchema:
     return db.query(Project).filter(Project.id == project_id).first()
 
-def get_projects(db: Session, skip: int = 0, limit: int = 100) -> List[Project]:
+def get_projects(db: Session, skip: int = 0, limit: int = 100) -> List[ProjectSchema]:
     return db.query(Project).offset(skip).limit(limit).all()
 
-def update_project(db: Session, project_id: str, project_update: ProjectCreate) -> Project:
+def update_project(db: Session, project_id: str, project_update: ProjectCreate) -> ProjectSchema:
     db_project = db.query(Project).filter(Project.id == project_id).first()
     if not db_project:
         return None
