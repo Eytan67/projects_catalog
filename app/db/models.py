@@ -33,4 +33,5 @@ class Admin(Base):
 
     sso_id = Column(String(100), primary_key=True)
     added_at = Column(TIMESTAMP, server_default=func.current_timestamp())
+    is_active = Column(String(10), default="true")
     
