@@ -13,10 +13,10 @@ router = APIRouter(prefix="/projects", tags=["projects"])
 @router.post("/", response_model=Project, status_code=status.HTTP_201_CREATED)
 def create_new_project(
     project: ProjectCreate,
-    current_user: Admin = Depends(is_admin),
+    _: bool = Depends(is_admin),
     db: Session = Depends(get_db)
 ):
-    return create_project(db, project, created_by=current_user.sso_id)
+    return create_project(db, project)
 
 @router.get("/{project_id}", response_model=Project)
 def read_project(project_id: str, db: Session = Depends(get_db)):
@@ -33,7 +33,7 @@ def read_projects(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)
 def update_existing_project(
     project_id: str,
     project: ProjectCreate,
-    current_user: Admin = Depends(is_admin),
+    _: bool = Depends(is_admin),
     db: Session = Depends(get_db)
 ):
     updated_project = update_project(db, project_id, project)
@@ -44,7 +44,7 @@ def update_existing_project(
 @router.delete("/{project_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_existing_project(
     project_id: str,
-    current_user: Admin = Depends(is_admin),
+    _: bool = Depends(is_admin),
     db: Session = Depends(get_db)
 ):
     success = delete_project(db, project_id)
