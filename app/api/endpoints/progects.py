@@ -8,7 +8,7 @@ from app.services.project_service import create_project, get_project, get_projec
 from app.api.deps import is_admin
 from app.db.models import Admin
 
-router = APIRouter(prefix="/projects", tags=["projects"])
+router = APIRouter()
 
 @router.post("/", response_model=Project, status_code=status.HTTP_201_CREATED)
 def create_new_project(

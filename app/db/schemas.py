@@ -12,6 +12,7 @@ class ProjectStatus(str, Enum):
 class ProjectBase(BaseModel):
     title: str
     description: Optional[str] = None
+    detailed_description: Optional[str] = None
     category: Optional[str] = None
     status: ProjectStatus = ProjectStatus.Development
     tags: List[str] = []
@@ -19,6 +20,14 @@ class ProjectBase(BaseModel):
     image_url: Optional[str] = None
     metrics: Dict = {}
     created_by: Optional[str] = None
+    tech_stack: List[str] = []
+    team_name: Optional[str] = None
+    product_manager: Optional[str] = None
+    external_url: Optional[str] = None
+    performance_metrics: Optional[str] = None
+    objectives: Optional[str] = None
+    challenges: Optional[str] = None
+    future_plans: Optional[str] = None
 
 class ProjectCreate(ProjectBase):
     pass
