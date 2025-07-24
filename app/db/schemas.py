@@ -48,6 +48,7 @@ class AdminCreate(AdminBase):
 
 class Admin(AdminBase):
     added_at: datetime
+    is_active: bool
 
     class Config:
         from_attributes = True

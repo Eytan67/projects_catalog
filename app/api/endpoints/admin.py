@@ -15,7 +15,7 @@ def check_admin_status(
     """Check if user with given sso_id is an admin"""
     admin = db.query(AdminModel).filter(
         AdminModel.sso_id == sso_id,
-        AdminModel.is_active == "true"
+        AdminModel.is_active == True
     ).first()
     
     return {"is_admin": admin is not None}

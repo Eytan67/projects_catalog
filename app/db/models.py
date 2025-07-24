@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Text, Enum, TIMESTAMP
+from sqlalchemy import Column, String, Text, Enum, TIMESTAMP, Boolean
 from sqlalchemy.dialects.postgresql import UUID, JSONB
 from sqlalchemy.sql import func
 import enum
@@ -40,7 +40,10 @@ class Project(Base):
 class Admin(Base):
     __tablename__ = "admins"
 
-    sso_id = Column(String(100), primary_key=True)
+    sso_id = Column(String(100), primary_key=True, index=True)
     added_at = Column(TIMESTAMP, server_default=func.current_timestamp())
-    is_active = Column(String(10), default="true")
+    is_active = Column(Boolean, default=True, nullable=False, index=True)
+    
+    def __repr__(self):
+        return f"<Admin(sso_id='{self.sso_id}', is_active={self.is_active})>"
     

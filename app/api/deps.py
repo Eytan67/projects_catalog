@@ -6,13 +6,23 @@ from app.db.database import get_db
 from app.db.models import Admin as AdminModel
 
 def is_admin(
+    sso_id: Annotated[str, Query(description="SSO ID for admin verification")],
     db: Session = Depends(get_db),
-    sso_id: Annotated[str | None, Query(description="Optional project type for authorization")] = None
 ) -> bool:
-    admin = db.query(AdminModel).filter(AdminModel.sso_id == sso_id).first()
+    if not sso_id:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Authentication required"
+        )
+    
+    admin = db.query(AdminModel).filter(
+        AdminModel.sso_id == sso_id,
+        AdminModel.is_active == True  # Now using Boolean type
+    ).first()
+    
     if not admin:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Admin with id {sso_id} not found"
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Admin access required"
         )
     return True
